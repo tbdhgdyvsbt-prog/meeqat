@@ -41,7 +41,7 @@ class MeeqatApp extends StatelessWidget {
       title: 'مِيقات - Meeqat',
       debugShowCheckedModeBanner: false,
       theme: MeeqatTheme.darkTheme,
-      home: const HomeScreen(),
+      home: const MainNavigation(),
     );
   }
 }

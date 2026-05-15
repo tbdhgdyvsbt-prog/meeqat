@@ -12,8 +12,6 @@ class HomeScreen extends StatelessWidget {
   void _showEventDetails(BuildContext context, int day) {
     final provider = Provider.of<WorshipProvider>(context, listen: false);
     
-    // Search for an event that matches this day in the current month
-    // Simplified: searching in the local list
     final event = provider.currentMonthEvents.firstWhere(
       (e) => e.hijriDate.endsWith("-$day"), 
       orElse: () => WorshipEvent()
@@ -92,7 +90,6 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       Consumer<WorshipProvider>(
                         builder: (context, provider, child) {
-                          // Logic to show today's event
                           return const Text(
                             "لا توجد طاعات محددة لهذا اليوم. استثمر وقتك في ذكر الله.",
                             textAlign: TextAlign.center,
