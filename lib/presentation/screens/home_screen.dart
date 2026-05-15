@@ -1,16 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../core/theme/colors.dart';
 import '../widgets/cosmic_chronometer.dart';
+import '../widgets/event_detail_sheet.dart';
+import '../manager/worship_provider.dart';
+import '../../domain/entities/worship_event.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  void _showEventDetails(BuildContext context, int day) {
+    final provider = Provider.of<WorshipProvider>(context, listen: false);
+    
+    // Search for an event that matches this day in the current month
+    // Simplified: searching in the local list
+    final event = provider.currentMonthEvents.firstWhere(
+      (e) => e.hijriDate.endsWith("-$day"), 
+      orElse: () => WorshipEvent()
+        ..title = "لا يوجد حدث"
+        ..description = "يوم هادئ للذكر والدعاء"
+        ..isEnabled = false,
+    );
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => EventDetailSheet(
+        day: day,
+        event: provider.currentMonthEvents.contains(event) ? event : null,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Gradient
           Container(
             decoration: const BoxDecoration(
               gradient: RadialGradient(
@@ -43,19 +69,14 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 
-                // The Cosmic Chronometer
                 Center(
                   child: CosmicChronometer(
-                    onDaySelected: (day) {
-                      // Future: Show a bottom sheet with the event details
-                      print("Selected Day: $day");
-                    },
+                    onDaySelected: (day) => _showEventDetails(context, day),
                   ),
                 ),
                 
                 const Spacer(),
                 
-                // Bottom status area
                 Container(
                   padding: const EdgeInsets.all(30),
                   decoration: BoxDecoration(
@@ -69,10 +90,15 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(color: MeeqatColors.spiritualGold, fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 10),
-                      const Text(
-                        "لا توجد طاعات محددة لهذا اليوم. استثمر وقتك في ذكر الله.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: MeeqatColors.cloudWhite, fontSize: 14),
+                      Consumer<WorshipProvider>(
+                        builder: (context, provider, child) {
+                          // Logic to show today's event
+                          return const Text(
+                            "لا توجد طاعات محددة لهذا اليوم. استثمر وقتك في ذكر الله.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: MeeqatColors.cloudWhite, fontSize: 14),
+                          );
+                        },
                       ),
                       const SizedBox(height: 20),
                     ],

@@ -1,10 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'core/theme/colors.dart';
+import 'core/utils/notification_service.dart';
+import 'presentation/manager/worship_provider.dart';
 import 'presentation/screens/home_screen.dart';
+import 'package:isar/isar.dart';
+import 'domain/entities/worship_event.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MeeqatApp());
+  
+  // Initialize Isar
+  final isar = await Isar.open(
+    [WorshipEventSchema], 
+    directory: './', 
+  );
+  
+  final notificationService = NotificationService();
+  await notificationService.init();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<Isar>.value(value: isar),
+        ChangeNotifierProvider(
+          create: (_) => WorshipProvider(isar, notificationService),
+        ),
+      ],
+      child: const MeeqatApp(),
+    ),
+  );
 }
 
 class MeeqatApp extends StatelessWidget {

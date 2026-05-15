@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:math';
 import '../../core/theme/colors.dart';
 import '../../core/utils/hijri_helper.dart';
+import '../../presentation/manager/worship_provider.dart';
+import 'event_detail_sheet.dart';
 
 class CosmicChronometer extends StatefulWidget {
   final Function(int day) onDaySelected;
@@ -38,8 +41,6 @@ class _CosmicChronometerState extends State<CosmicChronometer> with SingleTicker
     double angle = atan2(dy, dx);
     if (angle < 0) angle += 2 * pi;
     
-    // Map angle to day of the month (1-30)
-    // Assuming 30 days for simplicity in the UI ring
     int day = ((angle / (2 * pi)) * 30).ceil().clamp(1, 30);
     
     setState(() {
@@ -96,15 +97,12 @@ class ChronometerPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = ringWidth + 5;
 
-    // Draw the days of the month
     for (int i = 1; i <= 30; i++) {
       double startAngle = ((i - 1) / 30) * 2 * pi - pi / 2;
-      double sweepAngle = (1 / 30) * 2 * pi - 0.05; // Small gap between days
+      double sweepAngle = (1 / 30) * 2 * pi - 0.05;
 
       Paint currentPaint = basePaint;
       
-      // Highlight worship days (Mondays, Thursdays, White Days)
-      // This is a simplified check; in reality, we'd use HijriHelper for the specific date
       if (i == 13 || i == 14 || i == 15) {
         currentPaint = highlightPaint;
       }
@@ -122,7 +120,6 @@ class ChronometerPainter extends CustomPainter {
       );
     }
 
-    // Draw the center core
     final corePaint = Paint()
       ..shader = RadialGradient(
         colors: [MeeqatColors.spiritualGold, MeeqatColors.midnightBlue],
@@ -130,10 +127,8 @@ class ChronometerPainter extends CustomPainter {
 
     canvas.drawCircle(center, 40, corePaint);
     
-    // Draw a simple glow around the core
     final glowPaint = Paint()
       ..color = MeeqatColors.spiritualGold.withOpacity(0.2)
-      ..// maskFilter = MaskFilter.blur(BlurStyle.normal, 10); // Not supported in all environments, using opacity instead
       ..style = PaintingStyle.fill;
       
     canvas.drawCircle(center, 50 + (10 * animationValue), glowPaint);
