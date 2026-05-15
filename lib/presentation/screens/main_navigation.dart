@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../core/theme/colors.dart';
+import '../../core/theme/colors.dart';
 import '../widgets/cosmic_chronometer.dart';
 import '../widgets/event_detail_sheet.dart';
 import '../manager/worship_provider.dart';

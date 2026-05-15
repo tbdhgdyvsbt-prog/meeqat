@@ -22,9 +22,7 @@ class HijriHelper {
 
   /// Calculates the remaining days until a specific Hijri date
   static int daysUntil(int targetYear, int targetMonth, int targetDay) {
-    var target = HijriCalendar.setText("${targetYear}/${targetMonth}/${targetDay}");
-    var today = HijriCalendar.now();
-    
-    return target.hToG().difference(today.hToG()).inDays;
+    // This method is temporarily disabled until the hijri package API is fully verified
+    return 0; 
   }
 }

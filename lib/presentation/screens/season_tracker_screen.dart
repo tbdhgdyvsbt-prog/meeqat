@@ -134,10 +134,9 @@ class SeasonTrackerScreen extends StatelessWidget {
                           const SizedBox(height: 5),
                           Text(
                             season.description,
-                            style: const TextStyle(
-                              color: MeeqatColors.cloudWhite,
+                            style: TextStyle(
+                              color: MeeqatColors.cloudWhite.withOpacity(0.7),
                               fontSize: 14,
-                              opacity: 0.7,
                             ),
                           ),
                         ],

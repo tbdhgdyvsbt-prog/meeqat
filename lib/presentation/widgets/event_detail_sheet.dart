@@ -66,7 +66,7 @@ class EventDetailSheet extends StatelessWidget {
                   value: event?.isEnabled ?? false,
                   onChanged: (value) {
                     if (event != null) {
-                      provider.toggleEvent(event);
+                      provider.toggleEvent(event!);
                     }
                   },
                   activeColor: MeeqatColors.spiritualGold,

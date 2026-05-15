@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                     letterSpacing: 2,
                   ),
                 ),
-                const Text(
+                Text(
                   "دليلك الروحاني في رحلة الزمان",
                   style: TextStyle(
                     color: MeeqatColors.cloudWhite.withOpacity(0.7),
