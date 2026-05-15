@@ -1,7 +1,10 @@
 import 'package:isar/isar.dart';
 
+part 'worship_event.g.dart';
+
 @collection
 class WorshipEvent {
+//... (rest of the class)
   Id id = Isar.autoIncrement;
 
   @Index()

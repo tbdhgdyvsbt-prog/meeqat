@@ -40,7 +40,7 @@ class EventDetailSheet extends StatelessWidget {
           const SizedBox(height: 12),
           if (event != null) ...[
             Text(
-              event.title,
+              event?.title ?? "بدون عنوان",
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: MeeqatColors.spiritualGold,
@@ -50,7 +50,7 @@ class EventDetailSheet extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              event.description,
+              event?.description ?? "",
               textAlign: TextAlign.center,
               style: const TextStyle(color: MeeqatColors.cloudWhite, fontSize: 16, height: 1.5),
             ),
@@ -63,9 +63,11 @@ class EventDetailSheet extends StatelessWidget {
                   style: TextStyle(color: MeeqatColors.cloudWhite, fontSize: 16),
                 ),
                 Switch(
-                  value: event.isEnabled,
+                  value: event?.isEnabled ?? false,
                   onChanged: (value) {
-                    provider.toggleEvent(event);
+                    if (event != null) {
+                      provider.toggleEvent(event);
+                    }
                   },
                   activeColor: MeeqatColors.spiritualGold,
                 ),

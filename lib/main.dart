@@ -4,8 +4,10 @@ import 'core/theme/colors.dart';
 import 'core/utils/notification_service.dart';
 import 'presentation/manager/worship_provider.dart';
 import 'presentation/screens/home_screen.dart';
+import 'presentation/screens/main_navigation.dart';
 import 'package:isar/isar.dart';
 import 'domain/entities/worship_event.dart';
+import 'domain/entities/worship_event.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

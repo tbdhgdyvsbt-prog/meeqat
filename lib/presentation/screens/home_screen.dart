@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../core/theme/colors.dart';
+import '../../core/theme/colors.dart';
 import '../widgets/cosmic_chronometer.dart';
 import '../widgets/event_detail_sheet.dart';
 import '../manager/worship_provider.dart';
@@ -63,7 +63,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const Text(
                   "دليلك الروحاني في رحلة الزمان",
-                  style: TextStyle(color: MeeqatColors.cloudWhite, fontSize: 16, opacity: 0.7),
+                  style: TextStyle(
+                    color: MeeqatColors.cloudWhite.withOpacity(0.7),
+                    fontSize: 16,
+                  ),
                 ),
                 const Spacer(),
                 
