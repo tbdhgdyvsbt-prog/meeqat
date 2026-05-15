@@ -32,10 +32,11 @@ jobs:
           <uses-permission android:name="android.permission.INTERNET" />\
           <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />\
           <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />\
-          <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />\
+          <uses-permission android:name="android.//- S l'autorisation de l'utilisateur pour l'accès à la localisation\\
           <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />' android/app/src/main/AndroidManifest.xml
           
           flutter pub get
+          flutter pub run build_runner build --delete-conflicting-outputs
           flutter build apk --release --quiet
 
       - name: Upload APK
